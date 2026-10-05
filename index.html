@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>China | The Gold Print</title>
+<style>
+:root {
+  --gold: #edc76c;
+  --light: #fff1bd;
+  --black: #090909;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--black);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+button, input { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+button:focus-visible, a:focus-visible, input:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 4px;
+}
+[hidden] { display: none !important; }
+.gold { color: var(--gold); }
+.button {
+  display: inline-block;
+  padding: 13px 24px;
+  border: 0;
+  border-radius: 30px;
+  background: linear-gradient(135deg, var(--light), var(--gold));
+  color: #17110a;
+  font-weight: bold;
+  text-decoration: none;
+}
+#entrance {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 30px;
+  text-align: center;
+  background: radial-gradient(circle, #392a0d 0%, #090909 65%);
+}
+.logo-button {
+  background: transparent;
+  border: 0;
+  color: var(--gold);
+}
+.logo-button img {
+  display: block;
+  width: min(78vw, 420px);
+  border-radius: 24px;
+  box-shadow: 0 0 55px #d6a53230;
+}
+.logo-button span {
+  display: block;
+  margin-top: 22px;
+  font-size: 18px;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 6%;
+  border-bottom: 1px solid #edc76c30;
+}
+.brand {
+  color: var(--gold);
+  font-family: Georgia, serif;
+  font-size: 25px;
+  text-decoration: none;
+}
+nav { display: flex; gap: 20px; }
+nav a { color: white; text-decoration: none; }
+.hero {
+  max-width: 1200px;
+  margin: auto;
+  padding: 65px 6%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+.eyebrow {
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+h1, h2 {
+  font-family: Georgia, serif;
+  font-weight: normal;
+  line-height: 1.15;
+}
+h1 { font-size: clamp(42px, 6vw, 76px); margin: 15px 0; }
+h2 { font-size: 38px; }
+.hero p { font-size: 18px; color: #ddd; }
+.portrait {
+  width: 100%;
+  max-height: 600px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 150px 150px 20px 20px;
+  border: 2px solid var(--gold);
+  box-shadow: 18px 18px 0 #edc76c15;
+}
+section.content {
+  max-width: 1100px;
+  margin: auto;
+  padding: 55px 6%;
+}
+.collections {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.card {
+  background: linear-gradient(145deg, #242019, #111);
+  border: 1px solid #edc76c45;
+  padding: 32px 25px;
+  border-radius: 18px;
+}
+.card h3 { color: var(--gold); font-size: 24px; }
+.card p { color: #ddd; }
+.payment {
+  text-align: center;
+  background: #17130c;
+  border: 1px solid #edc76c45;
+  border-radius: 22px;
+  padding: 40px 25px;
+}
+.payment p { max-width: 620px; margin: 18px auto; }
+#paymentStatus { color: var(--light); }
+.music {
+  padding: 20px 6%;
+  border-top: 1px solid #edc76c30;
+}
+.music-controls {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+#videoPlayer {
+  width: min(100%, 420px);
+  aspect-ratio: 16 / 9;
+}
+#videoPlayer iframe { width: 100%; height: 100%; border: 0; }
+footer {
+  text-align: center;
+  color: #ccc;
+  padding: 35px 20px 100px;
+}
+#chatToggle {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px 9px 9px;
+  border-radius: 50px;
+  border: 2px solid var(--gold);
+  background: #15110a;
+  color: var(--light);
+  box-shadow: 0 5px 30px #0008;
+  z-index: 10;
+}
+.avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+}
+#chatPanel {
+  position: fixed;
+  bottom: 100px;
+  right: 22px;
+  width: min(360px, calc(100vw - 32px));
+  background: #151515;
+  border: 1px solid var(--gold);
+  border-radius: 18px;
+  overflow: hidden;
+  z-index: 11;
+  box-shadow: 0 12px 50px #0009;
+}
+.chat-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  background: #302511;
+}
+.chat-head small { display: block; color: #eee; }
+#closeChat {
+  margin-left: auto;
+  color: white;
+  background: transparent;
+  border: 0;
+  font-size: 25px;
+}
+#messages {
+  height: 240px;
+  overflow-y: auto;
+  padding: 15px;
+}
+.message {
+  padding: 11px 14px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: #292929;
+  overflow-wrap: anywhere;
+}
+.message.user {
+  background: var(--gold);
+  color: #111;
+  margin-left: 30px;
+}
+#chatForm {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid #444;
+}
+#chatInput {
+  min-width: 0;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #666;
+  border-radius: 8px;
+  background: #080808;
+  color: white;
+}
+#chatForm button {
+  border: 0;
+  border-radius: 8px;
+  background: var(--gold);
+  padding: 10px 14px;
+}
+@media (max-width: 700px) {
+  header { flex-wrap: wrap; }
+  .hero { grid-template-columns: 1fr; padding-top: 35px; }
+  .hero-photo { grid-row: 1; }
+  .portrait { max-height: 430px; }
+  .collections { grid-template-columns: 1fr; }
+  nav { gap: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<div id="entrance">
+  <div>
+    <button id="enterButton" class="logo-button"
+            aria-label="Enter The Gold Print and play music">
+      <img src="gold-print-logo.png" alt="The Gold Print jewelry logo">
+      <span>Click the logo to enter &amp; play music</span>
+    </button>
+  </div>
+</div>
+
+<div id="website" hidden>
+  <header>
+    <a class="brand" href="#">The Gold Print</a>
+    <nav aria-label="Main navigation">
+      <a href="#collection">Jewelry</a>
+      <a href="#checkout">Payment</a>
+      <a href="#music">Music</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Jewelry by China</div>
+        <h1>Your style.<br><span class="gold">Your Gold Print.</span></h1>
+        <p>
+          Welcome to The Gold Print. China brings you jewelry
+          at reasonable prices, so you can add a little shine
+          to everyday life.
+        </p>
+        <a class="button" href="#collection">Explore the jewelry</a>
+      </div>
+      <div class="hero-photo">
+        <img class="portrait" src="China.jpg"
+             alt="China, the face of The Gold Print">
+      </div>
+    </div>
+
+    <section class="content" id="collection">
+      <p class="eyebrow">Find your shine</p>
+      <h2>Jewelry for your everyday style</h2>
+      <div class="collections">
+        <article class="card">
+          <h3>Necklaces &amp; Chains</h3>
+          <p>A finishing touch for your favorite outfit.</p>
+          <p>Ask about available styles and prices.</p>
+        </article>
+        <article class="card">
+          <h3>Rings &amp; Bracelets</h3>
+          <p>Details that make your look your own.</p>
+          <p>Ask about available styles and prices.</p>
+        </article>
+        <article class="card">
+          <h3>Earrings</h3>
+          <p>A little sparkle for every occasion.</p>
+          <p>Ask about available styles and prices.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content" id="checkout">
+      <div class="payment">
+        <p class="eyebrow">Credit &amp; debit cards</p>
+        <h2>Pay for your jewelry</h2>
+        <p>
+          After confirming your items and total with China,
+          continue to secure checkout to enter your card details.
+        </p>
+        <button class="button" id="checkoutButton">
+          Continue to secure checkout
+        </button>
+        <p id="paymentStatus" role="status"></p>
+      </div>
+    </section>
+
+    <section class="music" id="music" aria-label="Music player">
+      <div class="music-controls">
+        <span class="gold">The Gold Print soundtrack</span>
+        <button class="button" id="musicButton">Pause music</button>
+      </div>
+      <p id="musicStatus" role="status">
+        If the song doesn’t start, press Play in the player below.
+      </p>
+      <div id="videoPlayer"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span class="gold">The Gold Print · China</span><br>
+    Jewelry at reasonable prices.
+  </footer>
+
+  <button id="chatToggle" aria-expanded="false"
+          aria-controls="chatPanel">
+    <img class="avatar" src="China.jpg" alt="">
+    <span>Chat with us</span>
+  </button>
+
+  <section id="chatPanel" aria-label="The Gold Print assistant" hidden>
+    <div class="chat-head">
+      <img class="avatar" src="China.jpg" alt="China">
+      <div>
+        <strong>The Gold Print</strong>
+        <small>Automatic jewelry assistant</small>
+      </div>
+      <button id="closeChat" aria-label="Close chat">×</button>
+    </div>
+
+    <div id="messages" role="log" aria-live="polite">
+      <div class="message">
+        Hi! Welcome to China’s The Gold Print.
+        I’m an automatic assistant. Ask about jewelry or payments.
+        Messages here are not sent to China.
+      </div>
+    </div>
+
+    <form id="chatForm">
+      <input id="chatInput" aria-label="Your message"
+             placeholder="Ask about jewelry…" maxlength="500" required>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+</div>
+
+<script>
+/* SETUP:
+   Paste China's HTTPS Stripe, Square, or PayPal checkout link below.
+   Leave blank until a real checkout link is available.
+   Never put secret API keys or card details in this file.
+*/
+const CHECKOUT_URL = "";
+
+const SONG_ID = "m1a_GqJf02M";
+let player;
+let musicPlaying = false;
+let playerReady = false;
+let entered = false;
+
+const entrance = document.getElementById("entrance");
+const website = document.getElementById("website");
+const musicButton = document.getElementById("musicButton");
+const musicStatus = document.getElementById("musicStatus");
+
+function updateMusicButton(playing) {
+  musicPlaying = playing;
+  musicButton.textContent = playing ? "Pause music" : "Play music";
+}
+
+function createPlayer() {
+  player = new YT.Player("videoPlayer", {
+    videoId: SONG_ID,
+    playerVars: {
+      autoplay: entered ? 1 : 0,
+      playsinline: 1,
+      controls: 1,
+      loop: 1,
+      playlist: SONG_ID
+    },
+    events: {
+      onReady(event) {
+        playerReady = true;
+        if (entered) event.target.playVideo();
+      },
+      onStateChange(event) {
+        updateMusicButton(event.data === YT.PlayerState.PLAYING);
+        if (event.data === YT.PlayerState.PLAYING) {
+          musicStatus.textContent = "Music is playing.";
+        } else if (event.data === YT.PlayerState.PAUSED) {
+          musicStatus.textContent = "Music is paused.";
+        }
+      },
+      onAutoplayBlocked() {
+        updateMusicButton(false);
+        musicStatus.textContent =
+          "Press Play music or use the player below to start the song.";
+      },
+      onError() {
+        updateMusicButton(false);
+        musicStatus.textContent =
+          "This video is unavailable in the embedded player.";
+      }
+    }
+  });
+}
+
+window.onYouTubeIframeAPIReady = createPlayer;
+
+const youtubeScript = document.createElement("script");
+youtubeScript.src = "https://www.youtube.com/iframe_api";
+youtubeScript.onerror = function () {
+  musicStatus.textContent =
+    "The music player couldn’t load. Check your connection and refresh.";
+};
+document.head.appendChild(youtubeScript);
+
+document.getElementById("enterButton").addEventListener("click", () => {
+  entered = true;
+  entrance.hidden = true;
+  website.hidden = false;
+  window.scrollTo(0, 0);
+  if (playerReady) player.playVideo();
+});
+
+musicButton.addEventListener("click", () => {
+  if (!playerReady) {
+    musicStatus.textContent = "The player is loading. Please try again shortly.";
+    return;
+  }
+  if (musicPlaying) player.pauseVideo();
+  else player.playVideo();
+});
+
+document.getElementById("checkoutButton").addEventListener("click", () => {
+  const status = document.getElementById("paymentStatus");
+  if (!CHECKOUT_URL) {
+    status.textContent =
+      "Online checkout is not available yet. Please confirm payment arrangements with China.";
+    return;
+  }
+  try {
+    const checkout = new URL(CHECKOUT_URL);
+    if (checkout.protocol !== "https:") throw new Error("HTTPS required");
+    window.location.assign(checkout.href);
+  } catch {
+    status.textContent =
+      "Checkout is unavailable. Please contact China before paying.";
+  }
+});
+
+const chatToggle = document.getElementById("chatToggle");
+const chatPanel = document.getElementById("chatPanel");
+const chatInput = document.getElementById("chatInput");
+const messages = document.getElementById("messages");
+
+function setChat(open) {
+  chatPanel.hidden = !open;
+  chatToggle.setAttribute("aria-expanded", String(open));
+  if (open) chatInput.focus();
+  else chatToggle.focus();
+}
+chatToggle.addEventListener("click", () => setChat(chatPanel.hidden));
+document.getElementById("closeChat").addEventListener("click", () => setChat(false));
+chatPanel.addEventListener("keydown", event => {
+  if (event.key === "Escape") setChat(false);
+});
+
+function addMessage(text, user = false) {
+  const bubble = document.createElement("div");
+  bubble.className = "message" + (user ? " user" : "");
+  bubble.textContent = text;
+  messages.appendChild(bubble);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function replyTo(text) {
+  const question = text.toLowerCase();
+  if (/card|pay|checkout|debit|credit/.test(question)) {
+    return CHECKOUT_URL
+      ? "Use the Payment section to continue to secure checkout after confirming your items and total with China. Please don’t enter card details in chat."
+      : "Online card checkout hasn’t been connected yet. Please confirm payment arrangements with China. Please don’t enter card details in chat.";
+  }
+  if (/price|cost|cheap|afford/.test(question)) {
+    return "The Gold Print offers jewelry at reasonable prices. Exact prices need to be confirmed with China for your chosen item.";
+  }
+  if (/ring|chain|necklace|earring|bracelet|jewel/.test(question)) {
+    return "You can explore the jewelry categories on the page. China will need to confirm current items, materials, sizes, and availability.";
+  }
+  if (/ship|deliver|return|refund/.test(question)) {
+    return "Shipping, delivery, and return details haven’t been provided yet. Please confirm those details with China before buying.";
+  }
+  if (/china|person|human|contact/.test(question)) {
+    return "I’m an automatic assistant, and this chat doesn’t send messages to China. Her contact details still need to be added to the website.";
+  }
+  if (/music|song/.test(question)) {
+    return "Use the music controls near the bottom of the page to play or pause the soundtrack.";
+  }
+  return "Welcome to The Gold Print! I can help with general jewelry and payment questions. Item availability and orders need confirmation from China.";
+}
+
+document.getElementById("chatForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const text = chatInput.value.trim();
+  if (!text) return;
+  addMessage(text, true);
+  chatInput.value = "";
+  addMessage(replyTo(text));
+});
+</script>
+</body>
+</html>
